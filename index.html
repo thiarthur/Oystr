@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<!--  
+/* ### Código feito por Thiago Arthur / Criado: 03/03/2017 17:11:53 ### */
+
+	#####################################
+	# OBRIGADO OYSTR PELA OPORTUNIDADE  #
+	#	   DE MOSTRAR MEU TRABALHO!		#	
+	#                    	   			#	
+	#									#	
+	#####################################
+
+-->
+<meta charset="utf8">
+<meta name="viewport" content="user-scalable=NO, width=device-width, initial-scale=1">
+<head>
+	<title>Webyzer - Web Analyzer Tool v 1.0</title>
+</head>
+<style type="text/css">
+	section{font-family: JosefinRegular!important;}
+	.formHolder{margin-top:20px;}
+	.btn-theme{margin: 5px 0;background-color: #713aff;color: #fff!important}
+	.btn-theme:hover{background-color: #213fd5;}
+
+	.footer{bottom: 0;position: absolute!important;}
+	.fa-arrow-circle-right{margin-left:6px;}
+	#result{margin-top: 20px;margin-bottom: 20px;font-weight: bold; max-height: 350px;}
+	.l{ color: #444;}
+	.v{ color: #afafaf;}
+	#loading{ z-index: 999;padding: 0px;}
+	#loaded{ padding: 0px; }
+	.modal-body{ max-height: 500px; overflow-y: auto; }
+	td, th {border-bottom: 1px solid #dadada !important;padding: 5px!important;	}
+	#intCount, #extCount, #idsCount, #jsCount,#intCountU, #extCountU, #idsCountU, #jsCountU, .badge {margin:0 3px;}
+</style>
+<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/fonts.css"/>
+<body class="container-fluid">	
+	<section class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 text-center title"><h3>Webyzer</h3></section>
+	<section class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 jumbotron formHolder">
+
+		<section class="form">
+			<input class="form-control" id="urlForm" type="text" placeholder="Type your URL here.">
+			<button class="btn btn-theme pull-right" id="butt">Analyze <span class="fa-arrow-circle-right fa"></span></button>
+		</section>
+	</section>
+	<section id="result" class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+		<span class="status"></span>	
+
+		<section id="loaded" class="col-md-12">
+			<span class="l">Title: </span><span class="v" id="pageTitle">Titulo da Página</span><br>
+			<span class="l">HTML Version: <span class="v" id="htmlVersion">0.0</span> </span> <br> 
+			<span class="l">Deprecated Elements: <span class="v" id="depEls">0</span> </span> <span class="" id="depElsS" data-toggle="modal" href="#mDepEls"><a href="#">(Show)</a></span><br> 
+			<span class="l">Newer Elements: <span class="v" id="newEls">0</span> </span> <span class="" id="newElsS" data-toggle="modal" href="#mNewEls"><a href="#">(Show)</a></span><br> 
+			<br> <br>
+
+			<h5>Links</h5> 
+			<span class="l">Internal: </span><span class="v"><span id="intCount">00</span>(<span id="intCountU"> 00 </span> Unique)</span> <span class="" id="intCountS" data-toggle="modal" href="#mInternals"><a href="#">(Show)</a></span><br>
+			<span class="l">External: </span><span class="v"><span id="extCount">00 </span>(<span id="extCountU"> 00 </span> Unique)</span> <span class=""  id="extCountS"  data-toggle="modal" href="#mExternals"><a href="#">(Show)</a></span><br>
+			<span class="l">Ids: </span><span class="v"><span id="idsCount">00 </span>(<span id="idsCountU"> 00 </span> Unique) </span> <span class=""  id="idsCountS"  data-toggle="modal" href="#mIds"><a href="#">(Show)</a></span><br>
+			<span class="l">Javascript: </span><span class="v"><span id="jsCount">00 </span>(<span id="jsCountU"> 00 </span> Unique) </span> <span class=""  id="jsCountS"  data-toggle="modal" href="#mJs"><a href="#">(Show)</a></span><br>
+		</section>
+		<section id="loading" class="col-md-12 text-center">
+			<img src="hourglass.svg" width="50px">
+		</section>
+	</section>
+	<section id="dialogs" class="container">
+		<div class="modal fade" id="mInternals" role="dialog"><div class="modal-dialog modal-lg"><div class="modal-content">	<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>Internal Links</div><div class="modal-body"><table class="table cTable">	</table></div></div></div></div>
+		<div class="modal fade" id="mExternals" role="dialog"><div class="modal-dialog modal-lg"><div class="modal-content">	<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>External Links</div><div class="modal-body"><table class="table cTable">	</table></div></div></div></div>
+		<div class="modal fade" id="mIds" role="dialog"><div class="modal-dialog modal-sm"><div class="modal-content">	<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>References to Ids</div><div class="modal-body"><table class="table cTable"></table></div></div></div></div>
+		<div class="modal fade" id="mJs" role="dialog"><div class="modal-dialog modal-sm"><div class="modal-content">	<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>Javascript Functions</div><div class="modal-body"><table class="table cTable"></table></div></div></div></div>
+		<div class="modal fade" id="mDepEls" role="dialog"><div class="modal-dialog modal-sm"><div class="modal-content">	<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>Deprecated Elements</div><div class="modal-body"><table class="table cTable"></table></div></div></div></div>
+		<div class="modal fade" id="mNewEls" role="dialog"><div class="modal-dialog modal-sm"><div class="modal-content">	<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>New Elements</div><div class="modal-body"><table class="table cTable"></table></div></div></div></div>
+	</section>
+	<section id="criteria" class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+		<p><b>Environment: </b> 
+			This application uses PHP (Tested on 5.3), and requires cURL LIB (<a href="https://curl.haxx.se/download.html">https://curl.haxx.se/download.html</a>). 
+		</p>	
+		<p><b>HTML Version:</b> The first analysis will be made with Document Type definition, which indicates that the version is lower than version 5. In sequence, older and newer HTML elements will be listed for a better sinalization
+		</p>
+
+		<p><b>Page Title:</b> The content will be extracted from &lt;title&gt; tag</p>
+		<p><b>Links :</b> The server will find &lt;a&gt; tags. For each element, the href attribute is going to get tested for http protocols (http:// or https://).<br>If the link contains any protocol, the domain will be also tested, eliminating the inner domain links.<br>If does not, it is inferred that the link is external.</p>
+	</section>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="js/fa.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/script.js"></script>
+</html>	
